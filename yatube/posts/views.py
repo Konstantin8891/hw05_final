@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.core.cache import cache
 
 from .constants import POST_AMOUNT
 from .forms import CommentForm, PostForm
@@ -168,10 +169,10 @@ def profile_follow(request, username):
     ...
     follower = get_object_or_404(User, username=request.user)
     following = get_object_or_404(User, username=username)
-    # follower = request.user
-    # follower = User.objects.filter(username=follower).all()
-    # following = User.objects.filter(username=username).all()
-    Follow.objects.create(user=follower, author=following)
+    follow_object = Follow.objects.filter(user=follower, author=following).exists()
+    if follower != following and follow_object != True:  
+        Follow.objects.create(user=follower, author=following)
+        cache.clear()
     # return redirect('posts:profile', username)
     return redirect('posts:index')
 
@@ -180,5 +181,9 @@ def profile_follow(request, username):
 def profile_unfollow(request, username):
     # Дизлайк, отписка
     ...
-    Follow.objects.filter(user=request.user).delete()
+    follower = get_object_or_404(User, username=request.user)
+    following = get_object_or_404(User, username=username)
+    follow_object = Follow.objects.filter(user=follower, author=following)
+    follow_object.delete()
+    cache.clear()
     return redirect('posts:index')
