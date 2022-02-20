@@ -11,4 +11,4 @@ class NotFoundTest(TestCase):
 
     def test_404(self):
         response = self.guest_client.get('/anypage.html')
-        self.assertTemplateUsed(response, 'core/coreĄ.html')
+        self.assertTemplateUsed(response, 'core/404.html')
