@@ -1,39 +1,28 @@
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.core.cache import cache
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from django.core.cache import cache
+from django.views.decorators.cache import cache_page
 
-from .constants import POST_AMOUNT
 from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
+from .paginator import paginator_method
 
 
+@cache_page(20)
 def index(request):
-    posts = Post.objects.all()
-    # показывать post_amount постов
-    paginator = Paginator(posts, POST_AMOUNT)
-    # извлекаем номер запрошенной страницы
-    page_number = request.GET.get('page')
-    # получаем набор записей для страницы с запрошенным номером
-    page_obj = paginator.get_page(page_number)
+    posts = Post.objects.select_related('group', 'author').all()
+    page_obj = paginator_method(request, posts)
     template = 'posts/index.html'
-    context = {
-        'main_key': 'Это главная страница',
-        'page_obj': page_obj
-    }
+    context = {'page_obj': page_obj}
     return render(request, template, context)
 
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
     posts = group.posts.all()
-    paginator = Paginator(posts, POST_AMOUNT)
-    # извлекаем номер запрошенной страницы
-    page_number = request.GET.get('page')
-    # получаем набор записей для страницы с запрошенным номером
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_method(request, posts)
     context = {
         'group': group,
         'key_group_posts': 'Записи сообщества ',
@@ -47,12 +36,7 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     author_posts = author.posts.all()
     posts_count = author.posts.count()
-    # Здесь код запроса к модели и создание словаря контекста
-    paginator = Paginator(author_posts, POST_AMOUNT)
-    # извлекаем номер запрошенной страницы
-    page_number = request.GET.get('page')
-    # получаем набор записей для страницы с запрошенным номером
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator_method(request, author_posts)
     following = True
     if request.user.is_authenticated:
         follow = Follow.objects.filter(
@@ -147,18 +131,9 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    # информация о текущем пользователе доступна в переменной request.user
-    follow_request = request.user.follower.all()
-    posts = Post.objects.none()
-    for followers in follow_request:
-        posts = posts | followers.author.posts.all()
-    # posts = follow_request.author.posts.all()
-    # posts = get_object_or_404(Post, author=following_request)
-    paginator = Paginator(posts, POST_AMOUNT)
-    # извлекаем номер запрошенной страницы
-    page_number = request.GET.get('page')
-    # получаем набор записей для страницы с запрошенным номером
-    page_obj = paginator.get_page(page_number)
+    follow_request = request.user.follower.all().values('author')
+    posts = Post.objects.filter(author__in=follow_request)
+    page_obj = paginator_method(request, posts)
     context = {'page_obj': page_obj}
     return render(request, 'posts/follow.html', context)
 
@@ -166,24 +141,22 @@ def follow_index(request):
 @login_required
 def profile_follow(request, username):
     # Подписаться на автора
-    ...
-    follower = get_object_or_404(User, username=request.user)
     following = get_object_or_404(User, username=username)
-    follow_object = Follow.objects.filter(
-        user=follower,
-        author=following
+    follow_object = request.user.follower.filter(
+        author_id=following.id
     ).exists()
-    if follower != following and (not follow_object):
-        Follow.objects.create(user=follower, author=following)
+    if (
+        request.user != following
+        and (not follow_object)
+    ):
+        Follow.objects.create(user=request.user, author=following)
         cache.clear()
-    # return redirect('posts:profile', username)
     return redirect('posts:index')
 
 
 @login_required
 def profile_unfollow(request, username):
     # Дизлайк, отписка
-    ...
     follower = get_object_or_404(User, username=request.user)
     following = get_object_or_404(User, username=username)
     follow_object = Follow.objects.filter(user=follower, author=following)

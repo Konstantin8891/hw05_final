@@ -59,8 +59,8 @@ class PostCreateFormTests(TestCase):
     @classmethod
     def tearDownClass(cls):
         # удаление директории TEMP_MEDIA_ROOT
-        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
         super().tearDownClass()
+        shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
         self.authorized_client = Client()

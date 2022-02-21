@@ -6,6 +6,8 @@ from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.core.cache import cache
+from time import sleep
 
 from ..models import Comment, Follow, Group, Post, User
 
@@ -104,8 +106,10 @@ class PostPagesTest(TestCase):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
         self.guest_client = Client()
+        cache.clear()
 
     def test_pages_names(self):
+        cache.clear()
         for page, template in self.page_template.items():
             with self.subTest(page=page):
                 response = self.authorized_client.get(page)
@@ -119,6 +123,7 @@ class PostPagesTest(TestCase):
 
     # тест контекста index, group_list_profile
     def test_correct_read_only_context(self):
+        cache.clear()
         for rev in self.reverses_read_only_create:
             with self.subTest(rev=rev):
                 response = self.authorized_client.get(rev)
@@ -155,6 +160,7 @@ class PostPagesTest(TestCase):
             data=self.post_data,
             follow=True,
         )
+        cache.clear()
         for rev in self.reverses_read_only_create:
             with self.subTest(rev=rev):
                 response = self.authorized_client.get(rev)
@@ -259,8 +265,10 @@ class PaginatorViewsTest(TestCase):
     def setUp(self):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
+        
 
     def test_first_page_contains_ten_records(self):
+        cache.clear()
         for rev in PaginatorViewsTest.reverses:
             with self.subTest(rev=rev):
                 response = self.client.get(rev)
@@ -277,6 +285,7 @@ class PaginatorViewsTest(TestCase):
         for rev in PaginatorViewsTest.reverses:
             with self.subTest(rev=rev):
                 # Проверка: на второй странице должно быть три поста.
+                cache.clear()
                 response = self.client.get(reverse('posts:index') + '?page=2')
                 self.assertEqual(
                     response.
@@ -306,6 +315,7 @@ class CacheTests(TestCase):
     def setUp(self):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
+        cache.clear()
 
     def test_index_cache(self):
         response = self.authorized_client.get(reverse('posts:index'))

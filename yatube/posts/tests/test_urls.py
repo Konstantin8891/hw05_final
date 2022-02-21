@@ -2,6 +2,7 @@
 from http import HTTPStatus
 
 from django.test import Client, TestCase
+from django.core.cache import cache
 
 from ..models import Group, Post, User
 
@@ -79,6 +80,7 @@ class PostURLTests(TestCase):
         self.assertRedirects(response, '/posts/1')
 
     def test_templates(self):
+        cache.clear()
         for url, template in self.url_template.items():
             with self.subTest(url=url):
                 response = self.authorized_client.get(url)

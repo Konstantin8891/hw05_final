@@ -1,1 +1,0 @@
-POST_AMOUNT = 10
