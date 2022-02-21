@@ -18,8 +18,6 @@ class UsersURLTests(TestCase):
         )
 
     def setUp(self):
-        # Устанавливаем данные для тестирования
-        # Создаём экземпляр клиента. Он неавторизован.
         self.guest_client = Client()
         self.authorized_client = Client(enforce_csrf_checks=True)
         self.authorized_client.force_login(UsersURLTests.user)

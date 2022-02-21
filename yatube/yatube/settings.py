@@ -154,3 +154,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 POST_AMOUNT = 10
+
+CACHE_TIME = 20

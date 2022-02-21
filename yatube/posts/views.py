@@ -4,13 +4,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.cache import cache_page
+from django.conf import settings
 
 from .forms import CommentForm, PostForm
 from .models import Follow, Group, Post, User
 from .paginator import paginator_method
 
 
-@cache_page(20)
+@cache_page(settings.CACHE_TIME)
 def index(request):
     posts = Post.objects.select_related('group', 'author').all()
     page_obj = paginator_method(request, posts)
@@ -120,7 +121,7 @@ def add_comment(request, post_id):
     form = CommentForm(request.POST or None)
     if form.is_valid():
         # Сохранение с помощью commit=False
-        # дает вам объект модели, затем вы можете добавить свои
+        # дает объект модели, затем можно добавить свои
         # дополнительные данные и сохранить их.
         comment = form.save(commit=False)
         comment.author = request.user

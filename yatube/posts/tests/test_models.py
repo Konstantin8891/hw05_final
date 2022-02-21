@@ -34,7 +34,6 @@ class PostModelTest(TestCase):
 
     def test_models_have_correct_object_names(self):
         """Проверяем, что у моделей корректно работает __str__."""
-        # Напишите проверку тут
         self.assertEqual(
             self.group.title,
             str(self.group),

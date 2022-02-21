@@ -282,9 +282,9 @@ class PaginatorViewsTest(TestCase):
     def test_second_page_contains_three_records(self):
         for rev in PaginatorViewsTest.reverses:
             with self.subTest(rev=rev):
-                # Проверка: на второй странице должно быть три поста.
                 cache.clear()
                 response = self.client.get(reverse('posts:index') + '?page=2')
+                # Проверка: на второй странице должно быть три поста.
                 self.assertEqual(
                     response.
                     context['page_obj'].
