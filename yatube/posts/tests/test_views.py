@@ -7,7 +7,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.core.cache import cache
-from time import sleep
 
 from ..models import Comment, Follow, Group, Post, User
 
@@ -265,7 +264,6 @@ class PaginatorViewsTest(TestCase):
     def setUp(self):
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
-        
 
     def test_first_page_contains_ten_records(self):
         cache.clear()
