@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from embed_video.fields import EmbedVideoField
 
 User = get_user_model()
 
@@ -41,6 +42,10 @@ class Post(models.Model):
     created = models.DateTimeField(
         'Дата публикации',
         auto_now_add=True
+    )
+    video = EmbedVideoField(
+        blank=True,
+        null=True
     )
 
     class Meta:

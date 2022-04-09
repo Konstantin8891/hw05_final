@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}
-  <h1>Записи сообщества: {{group.title}}</h1>
+  <div class="container py-5">
+    <h1>Записи сообщества: {{group.title}}</h1>
+  </div>
 {% endblock %}
 {% block content %}
 {% load thumbnail %}
   <!-- <h1>{{ group.title }}</h1> -->
-  <p>{{ group.description }}</p>
   <!-- класс py-5 создает отступы сверху и снизу блока -->
-  <div class="container">     
+  <div class="container">
+    <p>{{ group.description }}</p>     
     {% for post in page_obj %}
       {% include 'posts/includes/post_list.html' %}
       <!-- под последним постом нет линии -->

@@ -5,7 +5,7 @@ from .models import Post, Group, Comment, Follow
 
 class PostAdmin(admin.ModelAdmin):
     # Поля
-    list_display = ('pk', 'text', 'created', 'author', 'group')
+    list_display = ('pk', 'text', 'created', 'author', 'group', 'video')
     # поиск по тексту постов
     search_fields = ('text',)
     # фильтрация по дате

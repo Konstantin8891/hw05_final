@@ -16,7 +16,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
+# STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -27,11 +27,20 @@ SECRET_KEY = 'fb7n5tjb*+u&k&h4q(w^y0g49__0jf^h%m%ig5f=6psry50=@1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = False
 
 CSRF_FAILURE_VIEW = 'core.views.csrf_failure'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '[::1]', ]
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'testserver',
+    '[::1]',
+    'konstantin05.pythonanywhere.com',
+    'www.konstantin05.pythonanywhere.com',
+    'konstantin06.pythonanywhere.com',
+    'www.konstantin06.pythonanywhere.com',
+]
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'posts:index'
@@ -68,6 +77,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'embed_video',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +89,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'yatube.urls'
@@ -153,6 +169,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
+
 POST_AMOUNT = 10
 
 CACHE_TIME = 20
+
