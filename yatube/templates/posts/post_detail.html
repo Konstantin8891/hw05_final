@@ -31,9 +31,6 @@
       <p>{{ post.text|safe|linebreaks }}</p>
       {% load embed_video_tags %} 
       {% video post.video "small" %}
-      {% if post.video %}
-        <p>{{ post.video }}</p>
-      {% endif %}
       <!-- если у поста есть группа -->  
       {% if post.author == request.user %}
         <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">
@@ -51,6 +48,13 @@
               {% csrf_token %}      
               <div class="form-group mb-2">
                 {{ form.text|addclass:"form-control" }}
+              
+              
+                <label for="id_video">
+                  Вставьте ссылку на видео на youtube или vimeo   
+                </label>
+                {% load embed_video_tags %} 
+                {{ form.comment_video }}
               </div>
               <button type="submit" class="btn btn-primary">Отправить</button>
             </form>
@@ -69,6 +73,11 @@
             <p>
               {{ comment.text }}
             </p>
+            {% load embed_video_tags %} 
+            <p>
+              {% video comment.comment_video "small" %}
+            </p>
+
           </div>
         </div>
       {% endfor %} 

@@ -79,6 +79,11 @@ class Comment(models.Model):
         'Дата публикации',
         auto_now_add=True
     )
+    comment_video = EmbedVideoField(
+        'Ссылка на видео на youtube или vimeo',
+        blank=True,
+        null=True
+    )
 
 
 class Follow(models.Model):

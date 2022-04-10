@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load user_filters %}
 {% block title %}
-  {% if is_edit %}
-    Редактировать запись
-  {% else %}
-    Добавить запись
-  {% endif %}
+  <div class="container py-5">
+    {% if is_edit %}
+      Редактировать запись
+    {% else %}
+      Добавить запись
+    {% endif %}
+  </div>
 {% endblock %}
 {% block content %}
 {% load thumbnail %}
@@ -29,9 +31,16 @@
                    <span class="required text-danger" >*</span>                  
                  </label>
                  {% if not is_edit %}
-                   <textarea name="text" cols="40" rows="10" 
-                     class="form-control" required id="id_text">
-                   </textarea>
+                   {% comment %}
+                     пробелы не ставить. они появляются в форме
+                   {% endcomment %}
+                   <textarea
+                    name="text"
+                    cols="40"
+                    rows="10"
+                    class="form-control"
+                    required
+                    id="id_text"></textarea>
                  {% endif %}            
                  {% if is_edit %}
                    {{ form.text }}
@@ -54,13 +63,13 @@
                </div>
                <div class="form-group row my-3 p-3">
                  <label for="id_image">
-                   загрузите картинку
+                   Загрузите картинку
                  </label>
                   {{ form.image }}                   
                </div>
                <div class="form-video row my-3 p-3">
                  <label for="id_video">
-                   вставьте ссылку на видео на youtube или vimeo   
+                   Вставьте ссылку на видео на youtube или vimeo   
                  </label>
                  {% load embed_video_tags %} 
                  {% video form.video "small" %}
