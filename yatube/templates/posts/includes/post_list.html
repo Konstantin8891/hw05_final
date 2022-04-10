@@ -22,7 +22,10 @@
       {% endthumbnail %}
     </div>
   {% endif %}
-  <p>{{ post.text }}</p>
+  {% comment %}
+    Перенос текста
+  {% endcomment %}
+  <p>{{ post.text|safe|linebreaks }}</p>
   {% load embed_video_tags %}
 
   <!-- The video tag: -->

@@ -44,6 +44,7 @@ class Post(models.Model):
         auto_now_add=True
     )
     video = EmbedVideoField(
+        'Ссылка на видео на youtube или vimeo',
         blank=True,
         null=True
     )
