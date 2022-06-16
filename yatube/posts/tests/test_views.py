@@ -120,21 +120,20 @@ class PostPagesTest(TestCase):
                 response = self.authorized_client.get(rev)
                 self.assertIn('form', response.context)
 
-    # тест контекста index, group_list_profile
+    # тест контекста profile
     def test_correct_read_only_context(self):
-        cache.clear()
-        for rev in self.reverses_read_only_create:
-            with self.subTest(rev=rev):
-                response = self.authorized_client.get(rev)
-                first_object = response.context['page_obj'][0]
-                post_text = first_object.text
-                post_group = first_object.group
-                post_author = first_object.author
-                post_image = first_object.image
-                self.assertEqual(post_text, self.post.text)
-                self.assertEqual(post_group, self.post.group)
-                self.assertEqual(post_author, self.post.author)
-                self.assertEqual(post_image, self.post.image)
+        rev = reverse('memo:profile')     
+        with self.subTest(rev=rev):
+            response = self.authorized_client.get(rev)
+            first_object = response.context['posts'][0]
+            post_user = first_object.user
+            post_title = first_object.title
+            post_comment = first_object.comment
+            post_location = first_object.location
+            self.assertEqual(post_user, self.memo.user)
+            self.assertEqual(post_title, self.memo.title)
+            self.assertEqual(post_comment, self.memo.comment)
+            self.assertEqual(post_location, self.memo.location)
 
     # Тест контекста post_detail
     def test_post_detail_context(self):
