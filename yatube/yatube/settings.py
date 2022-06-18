@@ -36,8 +36,6 @@ ALLOWED_HOSTS = [
     'localhost',
     'testserver',
     '[::1]',
-    'konstantin05.pythonanywhere.com',
-    'www.konstantin05.pythonanywhere.com',
     'konstantin06.pythonanywhere.com',
     'www.konstantin06.pythonanywhere.com',
 ]
