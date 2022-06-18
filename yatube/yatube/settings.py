@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     '[::1]',
     'konstantin06.pythonanywhere.com',
     'www.konstantin06.pythonanywhere.com',
+    '130.193.53.196'
 ]
 
 LOGIN_URL = 'users:login'
