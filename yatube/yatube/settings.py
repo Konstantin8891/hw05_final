@@ -38,7 +38,8 @@ ALLOWED_HOSTS = [
     '[::1]',
     'konstantin06.pythonanywhere.com',
     'www.konstantin06.pythonanywhere.com',
-    '130.193.53.196'
+    '130.193.53.196',
+    'konstantin05.hopto.org'
 ]
 
 LOGIN_URL = 'users:login'
@@ -174,4 +175,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR), 'static']
 POST_AMOUNT = 10
 
 CACHE_TIME = 20
-

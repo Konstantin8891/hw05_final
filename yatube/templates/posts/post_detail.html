@@ -3,6 +3,7 @@
 {% endblock %}
 {% block content %}
 {% load thumbnail %}
+{% load embed_video_tags %} 
 <div class="container py-5">
   <div class="row">
     <aside class="col-12 col-md-3">
@@ -29,8 +30,9 @@
         <img class="card-img my-2" src="{{ im.url }}">
       {% endthumbnail %}
       <p>{{ post.text|safe|linebreaks }}</p>
-      {% load embed_video_tags %} 
-      {% video post.video "small" %}
+      {% if post.video %}
+        {% video post.video "small" %}
+      {% endif %}
       <!-- если у поста есть группа -->  
       {% if post.author == request.user %}
         <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">

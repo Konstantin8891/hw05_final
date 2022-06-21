@@ -1,4 +1,5 @@
 {% load thumbnail %}
+{% load embed_video_tags %}
 <article>
   <ul>
     <li>
@@ -26,11 +27,13 @@
     Перенос текста
   {% endcomment %}
   <p>{{ post.text|safe|linebreaks }}</p>
-  {% load embed_video_tags %}
+  
 
   <!-- The video tag: -->
-  <center>
-    {% video post.video "large" %}<br>
-  </center>
+  {% if post.video %}
+    <center>
+      {% video post.video "large" %}<br>
+    </center>
+  {% endif %}
   <a href="{% url 'posts:post_detail' post.pk %}">подробная информация </a>
 </article>
