@@ -149,3 +149,5 @@ static/
 yatube/posts/static/
 yatube/media/
 
+# Docker
+.github/workflows/.env
