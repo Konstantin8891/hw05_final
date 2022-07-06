@@ -3,6 +3,7 @@ Yatube social network
 
 
 1. Clone project 
+
 git@github.com:Konstantin8891/hw05_final.git
 2. cd hw05_final
 3. Create virtual environment 
