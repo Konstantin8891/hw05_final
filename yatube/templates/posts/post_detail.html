@@ -50,12 +50,9 @@
               {% csrf_token %}      
               <div class="form-group mb-2">
                 {{ form.text|addclass:"form-control" }}
-              
-              
                 <label for="id_video">
                   Вставьте ссылку на видео на youtube или vimeo   
                 </label>
-                {% load embed_video_tags %} 
                 {{ form.comment_video }}
               </div>
               <button type="submit" class="btn btn-primary">Отправить</button>
@@ -79,11 +76,9 @@
             <p>
               {% video comment.comment_video "small" %}
             </p>
-
           </div>
         </div>
       {% endfor %} 
-      
     </article>
   </div>
 </div>
