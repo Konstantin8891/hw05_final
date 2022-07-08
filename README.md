@@ -13,9 +13,13 @@ Project uploaded to konstantin06.pythonanywhere.com
 ## System requirements:
 - Install Python 3.7 and prepare enviroment
 Install software: download and run files
-Python: www.python.org/downloads/ устанавливаем Python 3.7
+
+Python: www.python.org/downloads/ choose Python 3.7
+
 Visual Studio Code: code.visualstudio.com/download
+
 Git: git-scm.com/download/win
+
 - Terminal for Unix systems or emulator of terminal for Windows
 > Everything else will be installed during steps below
 
