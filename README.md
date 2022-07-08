@@ -6,7 +6,7 @@
 
 Yatube social network
 
-Post your images, video, text. Comment posts. Subscribe to authors
+Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework.
 
 
 1. Clone project 
