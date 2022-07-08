@@ -1,4 +1,4 @@
-# hw05_final
+# Yatube social network
 
 89670253660@mail.ru
 
@@ -6,7 +6,9 @@
 
 Yatube social network
 
-Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework.
+Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework 2.2.28.
+
+Project uploaded to konstantin06.pythonanywhere.com
 
 
 1. Clone project 
@@ -19,9 +21,17 @@ git@github.com:Konstantin8891/hw05_final.git
  
 python -m venv env
 
+or
+
+python3 -m venv venv
+
 4. Activate virtual environment 
 
 source venv/scripts/activate
+
+or
+
+. venv/bin/activate
 
 5. Upgrade pip 
 
