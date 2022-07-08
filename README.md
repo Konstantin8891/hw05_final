@@ -6,7 +6,7 @@
 
 Yatube social network
 
-Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework 2.2.28.
+Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework 2.2.28. All dependencies are in requirements.txt.
 
 Project uploaded to konstantin06.pythonanywhere.com
 
