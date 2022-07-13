@@ -6,9 +6,22 @@
 
 Yatube social network
 
-Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework 2.2.28.
+Post your images, video, text. Comment posts. Subscribe to authors. Based on Django framework 2.2.28. All dependencies are in requirements.txt.
 
 Project uploaded to konstantin06.pythonanywhere.com
+
+## System requirements:
+- Install Python 3.7 and prepare enviroment
+Install software: download and run files
+
+Python: www.python.org/downloads/ choose Python 3.7
+
+Visual Studio Code: code.visualstudio.com/download
+
+Git: git-scm.com/download/win
+
+- Terminal for Unix systems or emulator of terminal for Windows
+> Everything else will be installed during steps below
 
 
 1. Clone project 
