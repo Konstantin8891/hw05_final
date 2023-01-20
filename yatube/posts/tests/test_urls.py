@@ -32,7 +32,7 @@ class PostURLTests(TestCase):
         }
         cls.url_redirect = {
             '/create/': '/auth/login/?next=/create/',
-            f'/posts/{cls.post.pk}/edit': '/posts/1',
+            f'/posts/{cls.post.pk}/edit': '/posts/4',
         }
         cls.urls = [
             '/create/',
@@ -73,9 +73,9 @@ class PostURLTests(TestCase):
 
     def test_post_edit_another_authorized(self):
         self.another_authorized_client.force_login(self.empty_user)
-        response = self.another_authorized_client.get('/posts/1/edit')
+        response = self.another_authorized_client.get('/posts/4/edit')
         # Утверждаем, что для прохождения теста код должен быть равен 302
-        self.assertRedirects(response, '/posts/1')
+        self.assertRedirects(response, '/posts/4')
 
     def test_templates(self):
         cache.clear()
